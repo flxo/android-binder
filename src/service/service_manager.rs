@@ -84,6 +84,8 @@ impl ServiceManager {
         let mut p = Parcel::default();
         p.put_interface_token(INTERFACE_SERVICE_MANAGER)?;
         p.put_str16(name)?;
+        // TODO: Adding services is not yet functional. Transmitting binder handles
+        // require some ioctrls that are done from Parcel in libbinder. This part is missing here.
         p.put_binder(0xABABABAB as BinderPtr, 0xCACACACA as BinderPtr)?; 
         p.put_i32(if allow_isolated { 1 } else { 0 })?;
         match self.binder.call(&p, BINDER_SERVICE_MANAGER, SVC_MGR_ADD_SERVICE, 0) {

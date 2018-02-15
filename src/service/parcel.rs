@@ -93,6 +93,7 @@ impl Parcel {
         Ok(())
     }
 
+    // TODO: Understand how to transmit a binder.
     pub fn put_binder(&mut self, binder: BinderPtr, cookie: BinderPtr) -> Result<()> {
         let o = FlatBinderObject {
             type_: BinderType::Binder as u32,
