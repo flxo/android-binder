@@ -1,0 +1,27 @@
+[tasks.root_remount]
+script = [
+  "adb root",
+  "adb remount"
+]
+
+[tasks.example_list_build]
+command = "cargo"
+args = ["build", "--example", "servicemanager_list", "--target", "arm-linux-androideabi"]
+
+[tasks.example_add_build]
+command = "cargo"
+args = ["build", "--example", "servicemanager_add", "--target", "arm-linux-androideabi"]
+
+[tasks.example_list_run]
+dependencies = ["example_list_build"]
+script = [
+  "adb push target/arm-linux-androideabi/debug/examples/servicemanager_list /system/bin",
+  "adb shell /system/bin/servicemanager_list"
+]
+
+[tasks.example_add_run]
+dependencies = ["example_add_build"]
+script = [
+  "adb push target/arm-linux-androideabi/debug/examples/servicemanager_add /system/bin",
+  "adb shell /system/bin/servicemanager_add"
+]
